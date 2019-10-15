@@ -33,6 +33,10 @@ app.post("/slack/invite_me",(request,response) =>{
     }
 })
 
+app.get("/",(_,res) => {
+    res.send("Welcome!");
+})
+
 app.listen(process.env.PORT || 8080,() => {
     console.log("Server is Running!!")
 })
