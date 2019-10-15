@@ -5,7 +5,7 @@ const axios = require("axios").default
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/",(request,response) =>{
+app.post("/slack/invite_me",(request,response) =>{
     if(request.body.token === process.env.SLACK_VARIFICATION_TOKRN){
         const [reponame,username] = request.body.text.split(" ")
         const key = process.env.GITHUB_KEY_ADD_CONTRIBUTOR
