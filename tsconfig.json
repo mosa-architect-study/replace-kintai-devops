@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "sourceMap": true,
+      // TSはECMAScript 5に変換
+      "strict": true, 
+      "target": "ESNEXT",
+      // TSのモジュールはES Modulesとして出力
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "lib": [
+        "es2018"
+      ],
+      "baseUrl":".",
+      "rootDir": ".",
+      "outDir": "./build/",
+      "paths": {
+        "@/*": ["src/*"]
+      },
+      "typeRoots": ["node_modules/@types"]
+    },
+    "exclude": [
+      "node_modules"
+    ]
+}

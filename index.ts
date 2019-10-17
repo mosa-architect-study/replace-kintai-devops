@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express"
+import axios from "axios"
+
 const app = express();
-const axios = require("axios").default
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
