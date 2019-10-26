@@ -14,9 +14,6 @@
       "baseUrl":".",
       "rootDir": ".",
       "outDir": "./build/",
-      "paths": {
-        "@/*": ["src/*"]
-      },
       "typeRoots": ["node_modules/@types"]
     },
     "exclude": [

@@ -1,6 +1,6 @@
 import express from "express"
-import { InviteContributorHandler } from "@/handlers/InviteContributorHandler";
-import { InviteServiceImpl } from "@/services/InviteContributerService";
+import { InviteContributorHandler } from "./src/handlers/InviteContributorHandler";
+import { InviteServiceImpl } from "./src/services/InviteContributerService";
 
 if(!process.env.GITHUB_KEY_ADD_CONTRIBUTOR || !process.env.SLACK_VARIFICATION_TOKRN){
     throw Error("環境変数が設定されてません。")

@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import {InviteService} from "../services/InviteContributerService"
-import { SlackConfig } from "@/config";
+import { SlackConfig } from "../config";
 
 export const InviteContributorHandler : (invite:InviteService,config:SlackConfig) => RequestHandler = (invite,config)=> async (request,response) => {
     try {

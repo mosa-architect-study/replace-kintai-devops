@@ -1,5 +1,5 @@
 import axios from "axios"
-import {GithubConfig} from "@/config"
+import {GithubConfig} from "../config"
 
 const messages : {[key:string]:((inv:Invitation & {repositoryOwner:string}) => string) | undefined} = {
     201:({repositoryName,repositoryOwner}) => `Invitationを送ったよ。 https://github.com/${repositoryOwner}/${repositoryName}/invitations`,
