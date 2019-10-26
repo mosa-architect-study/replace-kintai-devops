@@ -1,6 +1,7 @@
 import express from "express"
 import { InviteContributorHandler } from "./src/handlers/InviteContributorHandler";
 import { InviteServiceImpl } from "./src/services/InviteContributerService";
+import { GithubWebHookHandler } from "src/handlers/GithubWebHookHandler";
 
 if(!process.env.GITHUB_KEY_ADD_CONTRIBUTOR || !process.env.SLACK_VARIFICATION_TOKRN){
     throw Error("環境変数が設定されてません。")
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/slack/invite_me",inviteContributorHandler)
+app.post("/github/webhook",GithubWebHookHandler())
 
 app.get("/",(_,res) => {
     console.log("Heart Beat!!!")
