@@ -41,43 +41,36 @@ app.post("/github/webhook",GithubWebHookHandler())
 app.post("/slack/heartbeat",slackEventHandler)
 app.post("/slack/discussion_issue",(request,response) => {
     const payload = JSON.parse(request.body.payload)
-    console.log(payload.channel,payload.response_url)
+    console.log(payload.response_url,payload.trigger_id)
     Axios.post(payload.response_url,{
-        "channel": payload.channel.id,
-        "blocks": [
-          {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "Danny Torrence left the following review for your property:"
-            }
+        "trigger_id": payload.trigger_id,
+        "view": {
+          "type": "modal",
+          "callback_id": "modal-identifier",
+          "title": {
+            "type": "plain_text",
+            "text": "Just a modal"
           },
-          {
-            "type": "section",
-            "block_id": "section567",
-            "text": {
-              "type": "mrkdwn",
-              "text": "<https://google.com|Overlook Hotel> \n :star: \n Doors had too many axe holes, guest in room 237 was far too rowdy, whole place felt stuck in the 1920s."
-            },
-            "accessory": {
-              "type": "image",
-              "image_url": "https://is5-ssl.mzstatic.com/image/thumb/Purple3/v4/d3/72/5c/d3725c8f-c642-5d69-1904-aa36e4297885/source/256x256bb.jpg",
-              "alt_text": "Haunted hotel image"
-            }
-          },
-          {
-            "type": "section",
-            "block_id": "section789",
-            "fields": [
-              {
+          "blocks": [
+            {
+              "type": "section",
+              "block_id": "section-identifier",
+              "text": {
                 "type": "mrkdwn",
-                "text": "*Average Rating*\n1.0"
+                "text": "*Welcome* to ~my~ Block Kit _modal_!"
+              },
+              "accessory": {
+                "type": "button",
+                "text": {
+                  "type": "plain_text",
+                  "text": "Just a button",
+                },
+                "action_id": "button-identifier",
               }
-            ]
-          }
-        ]
-      
-    })
+            }
+          ],
+        }
+      })
     response.send("ok")
 })
 app.post("/slack/discussion_issue/menus",(request,response) => {
