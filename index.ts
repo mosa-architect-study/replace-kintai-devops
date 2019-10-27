@@ -41,35 +41,54 @@ app.post("/slack/invite_me", inviteContributorHandler)
 app.post("/github/webhook", GithubWebHookHandler())
 app.post("/slack/heartbeat", slackEventHandler)
 app.post("/slack/discussion_issue", (request, response) => {
+    console.log(request.body.payload)
     const payload = JSON.parse(request.body.payload)
-    console.log(payload.trigger_id)
     Axios.post("https://slack.com/api/views.open", {
         "trigger_id": payload.trigger_id,
         "view": {
             "type": "modal",
-            "callback_id": "modal-identifier",
             "title": {
                 "type": "plain_text",
-                "text": "Just a modal"
+                "text": "Discussion!",
+                "emoji": true
+            },
+            "submit": {
+                "type": "plain_text",
+                "text": "Submit",
+                "emoji": true
+            },
+            "close": {
+                "type": "plain_text",
+                "text": "Cancel",
+                "emoji": true
             },
             "blocks": [
                 {
-                    "type": "section",
-                    "block_id": "section-identifier",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": "*Welcome* to ~my~ Block Kit _modal_!"
+                    "type": "input",
+                    "element": {
+                        "type": "plain_text_input"
                     },
-                    "accessory": {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "Just a button",
-                        },
-                        "action_id": "button-identifier",
+                    "block_id":"issue_title",
+                    "label": {
+                        "type": "plain_text",
+                        "text": "タイトル",
+                        "emoji": true
+                    }
+                },
+                {
+                    "type": "input",
+                    "element": {
+                        "type": "plain_text_input",
+                        "multiline": true
+                    },
+                    "block_id":"issue_content",
+                    "label": {
+                        "type": "plain_text",
+                        "text": "コメント",
+                        "emoji": true
                     }
                 }
-            ],
+            ]
         }
     }, {
         headers: {
