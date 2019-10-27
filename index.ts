@@ -28,7 +28,8 @@ app.get("/",(_,res) => {
     res.send("Welcome!");
 })
 
-app.post("/reminder/friday",(req,res) => {
+app.post("/slack/events",(req,res) => {
+    console.log(req.body)
     if(req.body.type === "url_verification") {
         res.send(req.body.challenge)
     }
