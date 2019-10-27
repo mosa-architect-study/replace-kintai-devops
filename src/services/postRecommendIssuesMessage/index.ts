@@ -1,7 +1,7 @@
 import { RecommendIssuesServiceImpl } from "./GithubRecommendIssuesService";
 import { PostSlackRecommendIssuesMessageServiceImpl,PostSlackRecommendIssuesMessageServiceConfig } from "./PostSlackRecommendIssuesMessageService";
 
-interface PostRecommendIssuesMessageService {
+export interface PostRecommendIssuesMessageService {
     ():Promise<void>
 }
 export type PostRecommendIssuesMessageServiceConfig = PostSlackRecommendIssuesMessageServiceConfig;
