@@ -5,7 +5,12 @@ import { GithubWebHookHandler } from "./src/handlers/GithubWebHookHandler";
 import { PostRecommendIssuesMessageServiceImpl } from "./src/services/postRecommendIssuesMessage";
 import {SlackEventsHandler} from "./src/handlers/SlackEventsHandler"
 
-if(!process.env.GITHUB_KEY_ADD_CONTRIBUTOR || !process.env.SLACK_VARIFICATION_TOKRN || !process.env.SLACK_POSTMSG_URL_TO_KINTAI){
+if(
+    !process.env.GITHUB_KEY_ADD_CONTRIBUTOR || 
+    !process.env.SLACK_VARIFICATION_TOKRN || 
+    !process.env.SLACK_POSTMSG_URL_TO_KINTAI || 
+    !process.env.SLACK_VARIFICATION_TOKRN_FROM_TIMER
+    ){
     throw Error("環境変数が設定されてません。")
 }
 
@@ -21,7 +26,9 @@ const postRecommendService = PostRecommendIssuesMessageServiceImpl({
     SLACK_POSTMSG_URL:process.env.SLACK_POSTMSG_URL_TO_KINTAI
 })
 
-const slackEventHandler = SlackEventsHandler(postRecommendService,slackConfig);
+const slackEventHandler = SlackEventsHandler(postRecommendService,{
+    VARIFICATION_TOKRN:process.env.SLACK_VARIFICATION_TOKRN_FROM_TIMER
+});
 
 const app = express();
 
@@ -30,10 +37,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post("/slack/invite_me",inviteContributorHandler)
 app.post("/github/webhook",GithubWebHookHandler())
-app.post("/slack/events",slackEventHandler);
+app.post("/slack/heartbeat",slackEventHandler)
 
 app.get("/",(_,res) => {
-    console.log("Heart Beat!!!")
     res.send("Welcome!");
 })
 
