@@ -28,6 +28,13 @@ app.get("/",(_,res) => {
     res.send("Welcome!");
 })
 
+app.post("/reminder/friday",(req,res) => {
+    if(req.body.type === "url_verification") {
+        res.send(req.body.challenge)
+    }
+    res.status(403).send("Error")
+})
+
 app.listen(process.env.PORT || 8080,() => {
     console.log("Server is Running!!")
 })
