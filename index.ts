@@ -42,7 +42,7 @@ app.post("/slack/discussion_issue",(request,response) => {
     console.log(request.body)
     response.send("ok")
 })
-app.get("/slack/discussion_issue/menus",(request,response) => {
+app.post("/slack/discussion_issue/menus",(request,response) => {
     console.log(request.body)
     response.json({
         "options": [
