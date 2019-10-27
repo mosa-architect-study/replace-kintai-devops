@@ -13,14 +13,15 @@ const inviteService = InviteServiceImpl({
     KEY_ADD_CONTRIBUTOR:process.env.GITHUB_KEY_ADD_CONTRIBUTOR,
     TARGET_REPOGITORY_OWNER:"mosa-architect-study"
 })
-const inviteContributorHandler = InviteContributorHandler(inviteService,{
+const slackConfig = {
     VARIFICATION_TOKRN:process.env.SLACK_VARIFICATION_TOKRN
-})
+}
+const inviteContributorHandler = InviteContributorHandler(inviteService,slackConfig)
 const postRecommendService = PostRecommendIssuesMessageServiceImpl({
     SLACK_POSTMSG_URL:process.env.SLACK_POSTMSG_URL_TO_KINTAI
 })
 
-const slackEventHandler = SlackEventsHandler(postRecommendService);
+const slackEventHandler = SlackEventsHandler(postRecommendService,slackConfig);
 
 const app = express();
 
