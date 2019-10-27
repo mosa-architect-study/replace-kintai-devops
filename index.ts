@@ -38,6 +38,10 @@ app.use(express.urlencoded({ extended: true }));
 app.post("/slack/invite_me",inviteContributorHandler)
 app.post("/github/webhook",GithubWebHookHandler())
 app.post("/slack/heartbeat",slackEventHandler)
+app.post("/slack/discussion_issue",(request,response) => {
+    console.log(request.body)
+    response.send("ok")
+})
 
 app.get("/",(_,res) => {
     res.send("Welcome!");
