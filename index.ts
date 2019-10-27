@@ -41,7 +41,7 @@ app.post("/github/webhook",GithubWebHookHandler())
 app.post("/slack/heartbeat",slackEventHandler)
 app.post("/slack/discussion_issue",(request,response) => {
     const payload = JSON.parse(request.body.payload)
-    console.log(payload.response_url,payload.trigger_id)
+    console.log(payload.trigger_id)
     Axios.post(payload.response_url,{
         "trigger_id": payload.trigger_id,
         "view": {
@@ -70,8 +70,12 @@ app.post("/slack/discussion_issue",(request,response) => {
             }
           ],
         }
-      })
-    response.send("ok")
+      }).then(() => {
+        response.send("ok")
+      }).catch(e => {
+          console.log(e);
+      }) 
+    
 })
 app.post("/slack/discussion_issue/menus",(request,response) => {
     console.log(request.body)
