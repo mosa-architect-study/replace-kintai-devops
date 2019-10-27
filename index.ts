@@ -32,8 +32,19 @@ app.post("/slack/events",(req,res) => {
     console.log(req.body)
     if(req.body.type === "url_verification") {
         res.send(req.body.challenge)
+        return;
     }
-    res.status(403).send("Error")
+    const event = req.body.event
+    if(event && event.type === "message" && event.channel === "CPUM4P60G" && event.user === "USLACKBOT"){
+        const regexp = /Reminder: (\w+)\./.exec(event.text);
+        if(regexp){
+            const [,command] = regexp;
+            if(command === "friday"){
+                console.log("Reached")
+            }
+        }
+    }
+    res.status(203).send("No Content");
 })
 
 app.listen(process.env.PORT || 8080,() => {
