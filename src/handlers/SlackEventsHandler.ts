@@ -8,8 +8,7 @@ export const SlackEventsHandler = (postRecommend:PostRecommendIssuesMessageServi
             return;
         }
         const event = request.body.event
-        console.log(event);
-        if(event && event.type === "message"){
+        if(event && event.type === "app_mention" && event.channel === "CPUM4P60G"){
             const regexp = /Reminder: (\w+)\./.exec(event.text);
             if(regexp){
                 const [,command] = regexp;
