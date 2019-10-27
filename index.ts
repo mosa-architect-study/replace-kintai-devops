@@ -10,7 +10,8 @@ if(
     !process.env.GITHUB_KEY_ADD_CONTRIBUTOR || 
     !process.env.SLACK_VARIFICATION_TOKRN || 
     !process.env.SLACK_POSTMSG_URL_TO_KINTAI || 
-    !process.env.SLACK_VARIFICATION_TOKRN_FROM_TIMER
+    !process.env.SLACK_VARIFICATION_TOKRN_FROM_TIMER || 
+    !process.env.SLACK_AUTH_TOKEN
     ){
     throw Error("環境変数が設定されてません。")
 }
@@ -70,6 +71,10 @@ app.post("/slack/discussion_issue",(request,response) => {
             }
           ],
         }
+      },{
+          headers:{
+            Authorization:`Bearer ${process.env.SLACK_AUTH_TOKEN}`
+          }
       }).then(() => {
         response.send("ok")
       }).catch(e => {
