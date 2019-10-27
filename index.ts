@@ -4,6 +4,7 @@ import { InviteServiceImpl } from "./src/services/InviteContributerService";
 import { GithubWebHookHandler } from "./src/handlers/GithubWebHookHandler";
 import { PostRecommendIssuesMessageServiceImpl } from "./src/services/postRecommendIssuesMessage";
 import {SlackEventsHandler} from "./src/handlers/SlackEventsHandler"
+import Axios from "axios";
 
 if(
     !process.env.GITHUB_KEY_ADD_CONTRIBUTOR || 
@@ -39,9 +40,10 @@ app.post("/slack/invite_me",inviteContributorHandler)
 app.post("/github/webhook",GithubWebHookHandler())
 app.post("/slack/heartbeat",slackEventHandler)
 app.post("/slack/discussion_issue",(request,response) => {
-    console.log(JSON.parse(request.body.payload).channel)
-    response.json({
-        "channel": JSON.parse(request.body.payload).channel.id,
+    const payload = JSON.parse(request.body.payload)
+    console.log(payload.channel,payload.response_url)
+    Axios.post(payload.response_url,{
+        "channel": payload.channel.id,
         "blocks": [
           {
             "type": "section",
@@ -74,7 +76,9 @@ app.post("/slack/discussion_issue",(request,response) => {
             ]
           }
         ]
-      })
+      
+    })
+    response.send("ok")
 })
 app.post("/slack/discussion_issue/menus",(request,response) => {
     console.log(request.body)
