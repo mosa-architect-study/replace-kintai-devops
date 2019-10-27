@@ -41,7 +41,7 @@ app.post("/slack/heartbeat",slackEventHandler)
 app.post("/slack/discussion_issue",(request,response) => {
     console.log(JSON.parse(request.body.payload).channel)
     response.json({
-        "channel": JSON.parse(request.body.payload).channel,
+        "channel": JSON.parse(request.body.payload).channel.id,
         "blocks": [
           {
             "type": "section",
