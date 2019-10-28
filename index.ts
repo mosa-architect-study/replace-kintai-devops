@@ -101,34 +101,6 @@ app.post("/slack/discussion_issue", (request, response) => {
     })
 
 })
-app.post("/slack/discussion_issue/menus", (request, response) => {
-    console.log(request.body)
-    response.json({
-        "options": [
-            {
-                "text": {
-                    "type": "plain_text",
-                    "text": "*this is plain_text text*"
-                },
-                "value": "value-0"
-            },
-            {
-                "text": {
-                    "type": "plain_text",
-                    "text": "*this is plain_text text*"
-                },
-                "value": "value-1"
-            },
-            {
-                "text": {
-                    "type": "plain_text",
-                    "text": "*this is plain_text text*"
-                },
-                "value": "value-2"
-            }
-        ]
-    })
-})
 
 app.get("/", (_, res) => {
     res.send("Welcome!");
