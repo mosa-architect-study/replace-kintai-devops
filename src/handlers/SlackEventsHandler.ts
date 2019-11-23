@@ -15,7 +15,7 @@ export const SlackEventsHandler = (postRecommend:PostRecommendIssuesMessageServi
         } 
         const event = request.body.event
         if(event && event.type === "message"){
-            const regexp = /Reminder: (\w+)\./.exec(event.text);
+            const regexp = /: (\w+)\./.exec(event.text);
             if(regexp){
                 const [,command] = regexp;
                 if(command === "friday"){
